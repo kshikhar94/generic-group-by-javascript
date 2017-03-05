@@ -152,10 +152,11 @@ function startFunc(arrayOfObjects, groupByColumns, column, operation, label) {
 		if(arr.length > 0) { deleteColumns(arrayOfObjects, arr) }
 
 		arrayOfObjectsSplit = splitData(arrayOfObjects, groupByColumns)
-		// console.log(arrayOfObjectsSplit)
+		// console.log(arrayOfObjectsSplit) //uncomment this line to view split dataset
 		console.log(doOperation(arrayOfObjectsSplit, column, operation, label))
-} //startFunc ends!
+}
 
+//only one should be un-commented
 
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcSum, 'sumIs');
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcProduct, 'productIs');
@@ -163,6 +164,5 @@ function startFunc(arrayOfObjects, groupByColumns, column, operation, label) {
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], findMax, 'Minimum');
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcAverage, 'Average');
 // startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], findMax ,'Maximum');
-// startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');
-startFunc(arrayOfObjects,['CustomerId', 'ShipperID', 'EmpId'], ['Amount'], '' ,'thisIsLabelForColumn');
-
+startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');
+// startFunc(arrayOfObjects,['CustomerId', 'ShipperID', 'EmpId'], ['Amount'], '' ,'thisIsLabelForColumn');
