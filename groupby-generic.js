@@ -165,3 +165,4 @@ function startFunc(arrayOfObjects, groupByColumns, column, operation, label) {
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcAverage, 'Average');
 // startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], findMax ,'Maximum');
 startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');
+// startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], '' ,'percentageIncrease');
