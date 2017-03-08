@@ -1,3 +1,4 @@
+var lodash = require('lodash')
 var arrayOfObjects = [{"EmpId":1,"CustomerId":2, "ShipperID":20, "Amount":100},
 											{"EmpId":3,"CustomerId":1, "ShipperID":30, "Amount":150},
 											{"EmpId":1,"CustomerId":2, "ShipperID":20, "Amount":10},
@@ -83,27 +84,31 @@ function deleteColumns(arrayOfObjects, arr) { 		//detecting unnecssary columns
 			}
 		}
 }//func ends
-function splitData(arrayOfObjects, groupByColumns) {
+
+function compare(object_1, object_2, column) {
+		var temporaryObject_1, temporaryObject_2  = new Object()
+		temporaryObject_1 = lodash.clone(object_1)
+		delete temporaryObject_1[column]
+		temporaryObject_2 = lodash.clone(object_2)
+		delete temporaryObject_2[column]
+		result = lodash.isEqual(temporaryObject_1, temporaryObject_2)
+		return result
+}
+function splitData(arrayOfObjects, groupByColumns, column) {
 		arrayOfObjectsSplit = new Array()
 		subArray = new Array()
-		flag_1 = 0; flag_2 = 0
+		flag_1 = 0;
 		currentObject = arrayOfObjects[0] //initiate
-		arrayOfObjectsSplit[0] = [currentObject] // [ [{},{}], [{},{}], [{}] ]
+		arrayOfObjectsSplit[0] = [currentObject]
 		for (var rootIndex = 1; rootIndex < arrayOfObjects.length; rootIndex++) {
 				for (var splitIndex = 0; splitIndex < arrayOfObjectsSplit.length; splitIndex++) {
-						for (var groupByProperty = 0; groupByProperty < groupByColumns.length; groupByProperty++) {
-								if (arrayOfObjectsSplit[splitIndex][0][groupByColumns[groupByProperty]] == arrayOfObjects[rootIndex][groupByColumns[groupByProperty]]) {
-										flag_1 = 1
-								}
-								else {
-										flag_1 = 0
-										break
-								}
-						}//3rd for loop ends
-						if (flag_1 == 1) {
+						result = compare(arrayOfObjects[rootIndex], arrayOfObjectsSplit[splitIndex][0], column)
+						if (result == true) {
+							flag_1 = 1
 							arrayOfObjectsSplit[splitIndex].push(arrayOfObjects[rootIndex])
-							break
-						}//don't check other subArray(s) in arrayOfObjectsSplit
+							break //match found
+						}
+						else { flag_1 = 0 }
 				}
 				if (flag_1 == 0) { //new entry in arrayOfObjectsSplit
 					arrayOfObjectsSplit[splitIndex] = [arrayOfObjects[rootIndex]]
@@ -151,7 +156,7 @@ function startFunc(arrayOfObjects, groupByColumns, column, operation, label) {
 
 		if(arr.length > 0) { deleteColumns(arrayOfObjects, arr) }
 
-		arrayOfObjectsSplit = splitData(arrayOfObjects, groupByColumns)
+		arrayOfObjectsSplit = splitData(arrayOfObjects, groupByColumns, column)
 		// console.log(arrayOfObjectsSplit) //uncomment this line to view split dataset
 		console.log(doOperation(arrayOfObjectsSplit, column, operation, label))
 }
@@ -163,6 +168,6 @@ function startFunc(arrayOfObjects, groupByColumns, column, operation, label) {
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcPercentage, 'percentageIs');
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], findMax, 'Minimum');
 // startFunc(arrayOfObjects,['EmpId','CustomerId'], ['Amount'], calcAverage, 'Average');
-// startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], findMax ,'Maximum');
-startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');
+startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], findMax ,'Maximum');
+// startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], increasePercent ,'percentageIncrease');
 // startFunc(arrayOfObjects,['EmpId','CustomerId', 'ShipperID'], ['Amount'], '' ,'nofunctionApplied');

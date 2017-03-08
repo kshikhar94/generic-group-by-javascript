@@ -1,0 +1,22 @@
+{
+  "name": "groupby-generic",
+  "version": "1.0.0",
+  "description": "GroupBy generic",
+  "main": "groupby-generic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kshikhar94/generic-group-by-javascript.git"
+  },
+  "author": "Shikhar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kshikhar94/generic-group-by-javascript/issues"
+  },
+  "homepage": "https://github.com/kshikhar94/generic-group-by-javascript#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
